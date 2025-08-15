@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import heroImage from "@/assets/aura-hero.jpg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -79,7 +80,7 @@ const load = <T,>(key: string, fallback: T): T => {
     return fallback;
   }
 };
-const save = (key: string, value: unknown) => localStorage.setItem(key, JSON.stringify(value));
+const save = (key: string, value: any) => localStorage.setItem(key, JSON.stringify(value));
 
 const Index = () => {
   // Signature gradient interaction
@@ -232,6 +233,11 @@ const Index = () => {
     toast({ title: "Deleted", description: "Expenditure entry removed." });
   };
 
+  const delSummary = (id: string) => {
+    setSummaries((prev) => prev.filter((s) => s.id !== id));
+    toast({ title: "Deleted", description: "Monthly summary removed." });
+  };
+
   const completeCurrentMonth = () => {
     const mk = currentMonthKey;
     // Prevent duplicate summaries
@@ -329,7 +335,7 @@ const Index = () => {
               </div>
             </div>
             <div className="relative rounded-lg overflow-hidden shadow-[var(--shadow-elegant)] animate-scale-in">
-              <img src="https://myscottsdaleparksuites.com/wp-content/uploads/2022/08/spa-2-1.jpg" alt="Radiant beauty spa ambience for Deep's Aura" className="w-full h-full object-cover" />
+              <img src={heroImage} alt="Radiant beauty spa ambience for Deep's Aura" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>
@@ -514,12 +520,13 @@ const Index = () => {
                       <TableHead className="text-right">Total Earned</TableHead>
                       <TableHead className="text-right">Total Expenditure</TableHead>
                       <TableHead className="text-right">Total Profit</TableHead>
+                      <TableHead className="w-[60px]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {summaries.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={4} className="text-center text-muted-foreground">No summaries yet. They will appear automatically at month end.</TableCell>
+                        <TableCell colSpan={5} className="text-center text-muted-foreground">No summaries yet. They will appear automatically at month end.</TableCell>
                       </TableRow>
                     ) : (
                       summaries
@@ -531,6 +538,11 @@ const Index = () => {
                             <TableCell className="text-right">{formatINR(m.totalEarned)}</TableCell>
                             <TableCell className="text-right">{formatINR(m.totalSpent)}</TableCell>
                             <TableCell className="text-right font-semibold">{formatINR(m.totalProfit)}</TableCell>
+                            <TableCell className="text-right">
+                              <Button variant="ghost" size="icon" aria-label="Delete" onClick={() => delSummary(m.id)}>
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))
                     )}
