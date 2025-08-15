@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import heroImage from "@/assets/aura-hero.jpg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -80,7 +79,7 @@ const load = <T,>(key: string, fallback: T): T => {
     return fallback;
   }
 };
-const save = (key: string, value: any) => localStorage.setItem(key, JSON.stringify(value));
+const save = (key: string, value: unknown) => localStorage.setItem(key, JSON.stringify(value));
 
 const Index = () => {
   // Signature gradient interaction
@@ -330,7 +329,7 @@ const Index = () => {
               </div>
             </div>
             <div className="relative rounded-lg overflow-hidden shadow-[var(--shadow-elegant)] animate-scale-in">
-              <img src={heroImage} alt="Radiant beauty spa ambience for Deep's Aura" className="w-full h-full object-cover" />
+              <img src="https://myscottsdaleparksuites.com/wp-content/uploads/2022/08/spa-2-1.jpg" alt="Radiant beauty spa ambience for Deep's Aura" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>

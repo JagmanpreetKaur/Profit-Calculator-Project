@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 
 @layer base {
   :root {
@@ -103,9 +106,7 @@
       linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--background)));
   }
   .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
-  .story-link {
-    @apply relative inline-block;
-  }
+  .story-link { @apply relative inline-block; }
   .story-link::after {
     content: "";
     @apply absolute left-0 bottom-0 h-0.5 w-full origin-bottom-right scale-x-0 bg-primary transition-transform duration-300;
